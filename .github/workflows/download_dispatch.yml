@@ -161,10 +161,10 @@ jobs:
           tar -zcvf "../$ZIP_NAME" ./
           mv "../$ZIP_NAME" .
 
-      - name: 上传结果
-        uses: actions/upload-artifact@v4
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ${{ env.UPLOAD_NAME }}
-          path: ${{ env.JM_DOWNLOAD_DIR }}/${{ env.ZIP_NAME }}
-          if-no-files-found: error
-          retention-days: 90
+          files: ${{ env.JM_DOWNLOAD_DIR }}/${{ env.ZIP_NAME }}
+          tag_name: v1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
